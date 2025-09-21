@@ -1,11 +1,23 @@
-<!doctype html>
-<html>
-<head>
-    <title>Home Page</title>
+<html lang="en">
+    <head>
+        <title>Home</title>
     </head>
     <body>
-        {% include "navbar.html" %}
-        <h1>Home</h1>
-        <p>home page yeah</p>
+        <h1>Welcome to my Temporary Homepage</h1>
+        
+        <h3>Enter your name</h3>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form action="{{ url_for('default_checklist') }}" method="POST">
+            <input type="text" name="username" placeholder="Your name" required>
+            <button type="submit">Submit</button>
+        </form>
+    
+        <p>
+            <a href="{{ url_for('default_checklist') }}">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Checklist logo" style="width:120px; height:auto;">
+            </a>
+        </p>
     </body>
 </html>

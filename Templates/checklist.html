@@ -1,16 +1,24 @@
-<!doctype html>
-<html>
-<head>
-    <title>Checklist</title>
-    </head>
     <body>
-        {% include "navbar.html" %}
-        <h1>Here's your Checklist:</h1>
-        <br>
-        <p>checklist items will appear here</p>
-        <p>should also show if items are checked off or not</p>
-        <br>
-        <p>can also have a button to clear the checklist</p>
-        <p>maybe itll just say no items in shopping cart if no items</p>
+        <h1>{{ name }}'s Checklist</h1>
+        <form method="POST">
+        {% for section in sections %}
+            {% set s_index = loop.index0 %}
+            <h2>{{ section['title'] }}</h2>
+            <ul>
+            {% for it in section['items'] %}
+                {% set i = loop.index0 %}
+                {% set item_id = 'item-' ~ s_index ~ '-' ~ i %}
+                <li>
+                    <label>
+                        <input type="checkbox" name="checked" value="{{ item_id }}" {% if item_id in checked %}checked{% endif %}>
+                        {{ it }}
+                    </label>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+            <button type="submit">Save</button>
+        </form>
     </body>
 </html>
+   

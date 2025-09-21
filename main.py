@@ -73,7 +73,7 @@ def card(name, img, price, rating):
     return s
 
 @app.route("/shop/<item>")
-def main(item):
+def shop(item):
     d = amazon_scraper(item, 15)
     entries = list(d.values())
     return render_template("catalog.html", entries = entries)
@@ -86,17 +86,13 @@ def home():
 def home2():
     return redirect(url_for("home"))
 
-@app.route("/shop")
-def shopping():
-    return render_template("shop.html")
+# @app.route("/checklist")
+# def checklist():
+#     return render_template("checklist.html")
 
-@app.route("/checklist")
-def checklist():
-    return render_template("checklist.html")
-
-@app.route("/cart")
-def shopping_cart():
-    return render_template("cart.html")
+# @app.route("/cart")
+# def shopping_cart():
+#     return render_template("cart.html")
 
 
 @app.route("/checklist", methods=["GET", "POST"])
@@ -110,29 +106,49 @@ def default_checklist():
     return redirect(url_for('checklist', username=default_user))
 
 checked_store = {}
+cart_items = [
+
+]
+
+user_checked = []
 
 @app.route("/<username>", methods=["GET", "POST"])
 def checklist(username):
+    checked = []
     # Static sections (same as before)
     sections = [
-        {'title': 'Bathroom & Toiletries', 'items': ['Shower Slippers', 'Towels', 'Caddie', 'Wet Wipes']},
+        {'title': 'Bathroom & Toiletries', 'items': ['Shower Slippers', 'Towels', 'Shower Caddie', 'Wet Wipes']},
         {'title': 'Bedding & Organization', 'items': ['Sheets', 'Comforter', 'Pillows', 'Pillow Covers']},
         {'title': 'Dorm Cutlery', 'items': ['Plastic Cups', 'Forks', 'Knives', 'Spoons', 'Bowls', 'Plates', 'Paper Towels']},
         {'title': 'Extras', 'items': ['Organizers', 'Hangers', 'Iron']}
     ]
 
+    sectionsAsList =[['Shower Slippers', 'Towels', 'Caddie', 'Wet Wipes'], ['Sheets', 'Comforter', 'Pillows', 'Pillow Covers'], ['Plastic Cups', 'Forks', 'Knives', 'Spoons', 'Bowls', 'Plates', 'Paper Towels'], ['Organizers', 'Hangers', 'Iron']]
     user = escape(username)
 
+    
     # Handle form submission on user's checklist page to update checked items
     if request.method == 'POST':
         # form sends checkbox values as 'item-<section>-<index>' = 'on' when checked
         checked = set(request.form.getlist('checked'))
         checked_store[user] = checked
-        return redirect(url_for('checklist', username=username))
+        user_checked = checked_store.get(user, set())
+        for i in checked:
+            indices = [int(j) for j in i[5:].split("-")]
+            n = sectionsAsList[indices[0]][indices[1]]
+            cart_items.append([n, f"/examples/{n}.jpg"])
+        return redirect(url_for('cart', username=username))
 
     user_checked = checked_store.get(user, set())
+
     return render_template('checklist.html', name=username, sections=sections, checked=user_checked)
 
 
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html", items=cart_items)
+
+
 if __name__ == '__main__':  
-   app.run(port="5090", debug=True)  
+   app.run(port="5600", debug=True)  

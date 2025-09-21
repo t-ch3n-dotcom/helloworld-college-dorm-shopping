@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: #333; }
+        table { width: 80%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        img { max-width: 80px; border-radius: 5px; }
+        .checkout-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .checkout-btn:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="p-40"><h1>Cart ({{ items|length }} items)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td><a target="_blank" and rel="noopener noreferrer" href="/shop/{{item[0]}}"><img src="{{url_for('static', filename= item[1] )}}" alt="{{ item[0] }}"></a></td>
+                <td><a class="text-black no-underline" target="_blank" rel="noopener noreferrer" href="/shop/{{item[0]}}">{{ item[0] }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> </div>
+    
+
+</body>
+</html>

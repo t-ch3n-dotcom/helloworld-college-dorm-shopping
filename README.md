@@ -41,7 +41,9 @@ visit link
 ## Challenges We Faced 
 
 Learning how to program in python
+
 Learning how to program in visual studio code with flask
+
 Designing a web page with css in limited time 
 
 ## Future Improvments
@@ -52,6 +54,7 @@ Designing a web page with css in limited time
 - Student reviews
 - Smart search/(filters)
   
+
 
 
 

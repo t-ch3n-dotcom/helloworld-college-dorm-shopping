@@ -20,3 +20,39 @@ to fufill their needs in a efficient and effective manner.
 ---
 
 ## Features
+- Curated Products List
+- Shopping cart functionality
+- web search
+- User Profiles with saved lists
+- sticky navigation
+
+---
+
+## Installation / Usage
+
+If you're cloning this project:
+
+git clone https://github.com/t-ch3n-dotcom/helloworld-college-dorm-shopping.git
+run main.py
+visit link 
+
+---
+
+## Challenges We Faced 
+
+Learning how to program in python
+Learning how to program in visual studio code with flask
+Designing a web page with css in limited time 
+
+## Future Improvments
+
+- Add a location tracker that is an option so the customer can be given the distance from the closest store for in person purchase 
+- dynamic checklist to cater to the needs of students based on their region and university
+- expand the list to tech and study tools
+- Student reviews
+- Smart search/(filters)
+  
+
+
+
+
